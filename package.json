@@ -1,0 +1,36 @@
+{
+  "name": "resilient-eureka",
+  "version": "1.0.0",
+  "description": "Resilient HTTP middleware for Netflix Eureka discovery service",
+  "main": "eureka.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zrwsk/resilient-eureka.git"
+  },
+  "keywords": [
+    "resilient",
+    "fault",
+    "tolerant",
+    "balance",
+    "ajax",
+    "http",
+    "https",
+    "xhr",
+    "request",
+    "agent",
+    "balancer",
+    "rest",
+    "netflix",
+    "eureka",
+    "discovery"
+  ],
+  "author": "Jakub Żurawski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zrwsk/resilient-eureka/issues"
+  },
+  "homepage": "https://github.com/zrwsk/resilient-eureka#readme"
+}
