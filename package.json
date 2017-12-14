@@ -1,6 +1,6 @@
 {
   "name": "resilient-eureka",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Resilient HTTP middleware for Netflix Eureka discovery service",
   "main": "eureka.js",
   "scripts": {

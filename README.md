@@ -25,7 +25,7 @@ client.use(eurekaMiddleware({
   serviceName: 'service'
 }))
 
-client.setServers(servers)
+client.discoveryServers(servers)
 
 // Test request
 client.get('/', function (err, res) {

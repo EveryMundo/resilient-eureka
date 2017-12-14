@@ -10,8 +10,14 @@ module.exports = function eurekaMiddleware(params) {
         if (err) return next()
         xml2js.parseString(res.body, (err, result) => {
           if (err) return next()
-          res.data = mapServersFromEurekaResponse(result)
-          next() 
+
+          try {
+            res.data = mapServersFromEurekaResponse(result)
+          } catch (err) { 
+            //fails silently
+          } finally {
+            next() 
+          }
         })
       },
       'out': function (options, next) {
