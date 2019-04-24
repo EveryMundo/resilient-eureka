@@ -2,7 +2,7 @@
   "name": "resilient-eureka",
   "version": "1.0.2",
   "description": "Resilient HTTP middleware for Netflix Eureka discovery service",
-  "main": "eureka.js",
+  "main": "eureka-middleware.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
