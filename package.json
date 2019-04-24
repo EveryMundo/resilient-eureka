@@ -1,6 +1,6 @@
 {
   "name": "@everymundo/resilient-eureka",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Resilient HTTP middleware for Netflix Eureka discovery service",
   "main": "eureka-middleware.js",
   "scripts": {
