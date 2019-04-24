@@ -1,10 +1,24 @@
 const xml2js = require('xml2js')
 
-module.exports = function eurekaMiddleware(params) {
+function mapServersFromEurekaResponse (data, params) {
+  return data
+    .applications
+    .application
+    .filter(service => params.serviceName ? service.name[0] === params.serviceName : true)
+    .map(service => service.instance)
+    .reduce((flat, toFlatten) =>
+      flat.concat(toFlatten), [])
+    .filter(service => params.serviceVipAddress ? service.vipAddress[0] === params.serviceVipAddress : true)
+    .map(service => params.protocol || 'http' + '://' + service.ipAddr[0] + ':' + service.port[0]._)
+}
+
+function eurekaMiddleware (params) {
   params = params || {}
 
-  function middleware(options, resilient) {
+  function middleware (options, resilient) {
     options.set('path', params.path || '/eureka/apps')
+    options.set('gzip', true)
+
     return {
       'in': function (err, res, next) {
         if (err) return next()
@@ -12,11 +26,11 @@ module.exports = function eurekaMiddleware(params) {
           if (err) return next()
 
           try {
-            res.data = mapServersFromEurekaResponse(result)
-          } catch (err) { 
-            //fails silently
+            res.data = mapServersFromEurekaResponse(result, params)
+          } catch (err) {
+            // fails silently
           } finally {
-            next() 
+            next()
           }
         })
       },
@@ -25,20 +39,12 @@ module.exports = function eurekaMiddleware(params) {
       }
     }
   }
-  
-  function mapServersFromEurekaResponse(data) {
-    return data
-      .applications
-      .application
-      .filter(service => params.serviceName ? service.name[0] === params.serviceName : true)
-      .map(service => service.instance)
-      .reduce((flat, toFlatten) =>
-        flat.concat(toFlatten), [])
-      .filter(service => params.serviceVipAddress ? service.vipAddress[0] === params.serviceVipAddress : true)
-      .map(service => params.protocol || 'http' + '://' + service.ipAddr[0] + ':' + service.port[0]._)
-  }
-  
-  middleware.type = 'discovery' 
-  
+
+  middleware.type = 'discovery'
+
   return middleware
 }
+
+eurekaMiddleware.mapServersFromEurekaResponse = mapServersFromEurekaResponse
+
+module.exports = eurekaMiddleware
